@@ -35,6 +35,14 @@ jobs:
           cd simple_live_tv_app
           flutter pub get
 
+      # 创建假的签名配置文件骗过 Gradle 检查（这是新加的这段）
+      - name: Create dummy key.properties
+        run: |
+          echo "storeFile=dummy.jks" > simple_live_tv_app/android/key.properties
+          echo "storePassword=dummy" >> simple_live_tv_app/android/key.properties
+          echo "keyPassword=dummy" >> simple_live_tv_app/android/key.properties
+          echo "keyAlias=dummy" >> simple_live_tv_app/android/key.properties
+
       #打包APK (改为不需要私钥的 debug 版本)
       - name: Build APK
         run: |
